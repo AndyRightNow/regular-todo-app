@@ -47,30 +47,36 @@ define([
       todos: [],
       newTodoDesc: "",
     },
-    addItem: function () {
+    init: function () {
+      this.getData();
+    },
+    addItem: function (item) {
       var data = this.data;
+
+      if (item) {
+        data.todos.push(item);
+        return;
+      }
 
       if (data.newTodoDesc) {
         data.todos.push(new Todo(data.newTodoDesc));
         data.newTodoDesc = "";
       }
     },
-    computed: {
-      fetched: function (data) {
-        this.getData();
-
-        return data.todos;
-      }
+    addData: function () {
+      
     },
     getData: function () {
       var data = this.data;
+      var self = this;
 
       Rest._$request('/api/data', {
         method: 'get',
         onload: function (res) {
           var d = res.data;
-          data.todos = d.map(function (todo) {
-            return new Todo(todo.description, false, todo._id);
+          d.forEach(function (todo) {
+            self.addItem(new Todo(todo.description, false, todo._id));
+            self.$update();
           });
           
           NProgress.done();
