@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Regular Todo' });
+  res.render('index', { title: 'Todo Manager - Powered By Regularjs' });
 });
 
 module.exports = router;

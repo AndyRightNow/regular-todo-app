@@ -14,12 +14,14 @@ This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework
 
 4. Go to ```http://localhost:3000``` to see the project.
 
+5. Run ```npm run dev``` if you want to play with it yourself.
+
 # Technology Stack
 
-1. **Express.js** for server-side framework.
-2. **MongoDB** for database.
-3. **Regularjs** for UI components.
-4. **Gulp** and **NEJ** for building.
-5. **Pug** for HTML template.
-6. **NEJ.define** for module system.
-7. **NEJ** for utilities.
+1. [**Express.js**]() for server-side framework.
+2. [**MongoDB**]() for database.
+3. [**Regularjs**](http://regularjs.github.io/) for UI components.
+4. [**Gulp**](http://gulpjs.com/) and [**NEJ Toolkit**](https://github.com/genify/toolkit2) for building.
+5. [**Pug**](https://pugjs.org/) for HTML template.
+7. [**NEJ**](https://github.com/genify/nej) for utilities and module system.
+8. [**Bulma**](http://bulma.io/) for CSS framework.
