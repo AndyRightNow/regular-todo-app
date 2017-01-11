@@ -50,21 +50,31 @@ define([
     init: function () {
       this.getData();
     },
-    addItem: function (item) {
+    addItem: function () {
       var data = this.data;
 
-      if (item) {
-        data.todos.push(item);
-        return;
-      }
-
       if (data.newTodoDesc) {
-        data.todos.push(new Todo(data.newTodoDesc));
+        var item = new Todo(data.newTodoDesc);
+
+        data.todos.push(item);
+        this.addData(item);
         data.newTodoDesc = "";
       }
     },
-    addData: function () {
-      
+    addData: function (item) {
+      Rest._$request('/api/data', {
+        data: item,
+        method: 'post',
+        onload: function (res) {
+          NProgress.done();
+        },
+        onerror: function (err) {
+          NProgress.done();
+        },
+        onbeforerequest: function () {
+          NProgress.start();
+        }
+      });
     },
     getData: function () {
       var data = this.data;
@@ -74,11 +84,12 @@ define([
         method: 'get',
         onload: function (res) {
           var d = res.data;
-          d.forEach(function (todo) {
-            self.addItem(new Todo(todo.description, false, todo._id));
-            self.$update();
+
+          data.todos = d.map(function (todo) {
+            return new Todo(todo.description, false, todo._id)
           });
-          
+          self.$update();
+
           NProgress.done();
         },
         onerror: function (err) {
