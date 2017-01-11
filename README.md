@@ -25,3 +25,4 @@ This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework
 5. [**Pug**](https://pugjs.org/) for HTML template.
 7. [**NEJ**](https://github.com/genify/nej) for utilities and module system.
 8. [**Bulma**](http://bulma.io/) for CSS framework.
+9. [**NProgress**](http://ricostacruz.com/nprogress/) for Progress bar.
