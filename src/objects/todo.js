@@ -9,15 +9,15 @@ NEJ.define([], function () {
    * @param {boolean} [completed=false] If this item is completed
    *
    */
-  function Todo(desc, completed) {
+  function Todo(desc, completed, id) {
     if (typeof desc !== "string") {
       throw new Error('The first argument of Todo object must be a string');
     }
     
     this.desc = desc;
     this.completed = completed || false;
+    this.id = id || 0;
     this.isEditing = false;
-    this._createdAt = new Date(Date.now()).toLocaleString("us");
     this._cachedDesc = "";
   }
 

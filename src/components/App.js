@@ -1,11 +1,12 @@
 define([
   '{pro}/lib/regular.js',
-  '{pro}objects/todo.js'
-], function (Regular, Todo) {
+  '{pro}objects/todo.js',
+  '{pro}/lib/nej/util/ajax/rest.js',
+  '{pro}/lib/nprogress.js'
+], function (Regular, Todo, Rest, NProgress) {
   Regular.event('enter', function (element, fire) {
     Regular.dom.on(element, 'keypress', function (event) {
-      
-      console.log(event.which);
+
       if (event.which === 13) fire(event);
     });
   });
@@ -36,7 +37,7 @@ define([
       </div>\
     </div>\
   </section>\
-  <todo-list todos={todos}></todo-list>\
+  <todo-list todos={todos} fetched={fetched}></todo-list>\
   ';
 
   var App = Regular.extend({
@@ -48,11 +49,39 @@ define([
     },
     addItem: function () {
       var data = this.data;
-      
+
       if (data.newTodoDesc) {
         data.todos.push(new Todo(data.newTodoDesc));
         data.newTodoDesc = "";
       }
+    },
+    computed: {
+      fetched: function (data) {
+        this.getData();
+
+        return data.todos;
+      }
+    },
+    getData: function () {
+      var data = this.data;
+
+      Rest._$request('/api/data', {
+        method: 'get',
+        onload: function (res) {
+          var d = res.data;
+          data.todos = d.map(function (todo) {
+            return new Todo(todo.description, false, todo._id);
+          });
+          
+          NProgress.done();
+        },
+        onerror: function (err) {
+          NProgress.done();
+        },
+        onbeforerequest: function () {
+          NProgress.start();
+        }
+      });
     }
   });
 

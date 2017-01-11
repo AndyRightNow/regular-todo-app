@@ -8,7 +8,7 @@ This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework
 
 1. Download the zip file or simple run ```git clone https://github.com/AndyRightNow/regular-todo-app.git``` in your command line window.
 
-2. Run ```npm start```. This command will first build the project and then run the server.
+2. Run ```npm install``` first. Then run ```npm start```. This command will first build the project and then run the server.
 
 3. If there is a connection error with MongoDB, type in ```rs``` to re-run the server.
 

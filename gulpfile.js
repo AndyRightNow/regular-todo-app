@@ -1,10 +1,17 @@
 const gulp = require('gulp');
-const run = require('gulp-run');
 const path = require('path');
+const exec = require('child_process').exec;
 const cleanCSS = require('gulp-clean-css');
 
-gulp.task('build-js', () => {
-  return run('nej export define.js?pro=./src/,./src/index.js -o ./public/javascripts/bundle.js').exec();
+gulp.task('build-js', (done) => {
+  exec('nej export ./src/lib/nej/define.js?pro=./src/,./src/index.js -o ./public/javascripts/bundle.js', (err, stdout, stderr) => {
+    if (err) {
+      console.log(err);
+    }
+
+    console.log(stdout);
+    done();
+  })
 });
 
 gulp.task('build-styles', () => {
