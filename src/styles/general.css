@@ -1,0 +1,76 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.icon-checkbox-button{
+  padding-left: 6px;
+  padding-right: 6px;
+  background-color: white;
+  color: gray;
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  outline: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.icon-checkbox-button:checked {
+  color: #3271dc;
+}
+
+.icon-checkbox-button::before {
+  content: "\f058";
+}
+
+.icon-checkbox-button:hover{
+  box-shadow: none;
+  border: none;
+  color: #3271dc;
+}
+
+.icon-checkbox-button i {
+  margin-top: 5px;
+}
+
+.icon-checkbox-button--small i {
+  font-size: 22px;
+}
+
+.icon-button {
+  color: #3271dc;
+}
+
+.icon-button:hover {
+  color: #446CB3;
+}
+
+.padding-tb-6px {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.blue-text {
+  color: #3273dc;
+}
+
+.gray-text {
+  color: lightgray;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.small-icon {
+  font-size: 21px;
+}
+
+.opacity-0 {
+  opacity: 0;
+  position: absolute;
+}
