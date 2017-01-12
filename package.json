@@ -7,13 +7,15 @@
   "scripts": {
     "start": "npm run build && nodemon ./bin/www",
     "build": "gulp",
-    "dev": "gulp dev"
+    "dev": "gulp dev",
+    "serve": "cross-env NODE_ENV=production && npm run build && forever ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
+    "forever": "^0.15.3",
     "mongoose": "^4.7.6",
     "morgan": "~1.7.0",
     "nprogress": "^0.2.0",
