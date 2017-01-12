@@ -156,7 +156,7 @@ router.put('/data', (req, res, next) => {
       }
       // No difference
       else {
-        res.status(304);
+        res.status(200);
 
         return res.json({
           message: 'ok'
