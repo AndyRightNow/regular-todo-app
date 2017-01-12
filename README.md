@@ -29,3 +29,7 @@ This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework
 
 # Screenshot Preview
 
+![Preview 1](./preview1.jpg "Screenshot Preview 1")
+![Preview 2](./preview2.jpg "Screenshot Preview 2")
+![Preview 3](./preview3.jpg "Screenshot Preview 3")
+![Preview 4](./preview4.jpg "Screenshot Preview 4")
