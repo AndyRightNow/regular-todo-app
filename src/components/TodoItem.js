@@ -7,7 +7,9 @@ define([
     <div class="box">\
       <article class="media">\
         <div class="media-left">\
-          <input r-model={ item.completed } type="checkbox" class="icon-checkbox-button fa fa-check-circle fa-2x">\
+          <input r-model={ item.completed }\
+                 type="checkbox"\
+                 class="icon-checkbox-button fa fa-check-circle fa-2x">\
         </div>\
         <div class="media-content padding-tb-6px">\
           {#if !item.isEditing}\
@@ -15,11 +17,17 @@ define([
               { item.description }\
             </div>\
           {#else}\
-            <input on-esc={ item.toggleEditing(true) } on-enter={ item.toggleEditing() } type="text" class="input is-medium" r-model={ item.description }>\
+            <input on-esc={ item.toggleEditing(true) }\
+                   on-enter={ item.toggleEditing() }\
+                   type="text"\
+                   class="input is-medium-small"\
+                   r-model={ item.description }>\
           {/if}\
         </div>\
         <div class="media-right">\
-          <a class="icon-button" on-click={item.toggleEditing()}><i class="fa fa-pencil-square small-icon" aria-hidden="true"></i></a>\
+          <a class="icon-button" on-click={item.toggleEditing()}>\
+            <i class="fa fa-pencil-square small-icon" aria-hidden="true"></i>\
+          </a>\
         </div>\
         <div class="media-right">\
           <a on-click={this.remove()} class="delete"></a>\

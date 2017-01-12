@@ -3,10 +3,54 @@ const TodoModel = require('./../models/todo');
 
 const router = express.Router();
 
+/**
+ *
+ * GET request
+ *
+ */
+router.get('/data', (req, res, next) => {
+  TodoModel.find({}, (err, todos) => {
+    if (err) {
+      console.log(err);
 
-router
-  .get('/data', (req, res, next) => {
-    TodoModel.find({}, (err, todos) => {
+      return next({
+        message: 'Unknown server error'
+      });
+    }
+
+    var resJson;
+    if (todos) {
+      res.status(200);
+
+      resJson = {
+        message: 'ok',
+        data: todos
+      };
+    } else {
+      res.status(404);
+
+      resJson = {
+        message: 'No data'
+      };
+    }
+
+    return res.json(resJson);
+  })
+});
+
+/**
+ *
+ * POST request to create a new todo
+ *
+ */
+router.post('/data', (req, res, next) => {
+  var data = req.body;
+
+  if (data) {
+    TodoModel.create({
+      description: data.description,
+      completed: Boolean(data.completed) // For undefined value
+    }, (err, todo) => {
       if (err) {
         console.log(err);
 
@@ -15,100 +59,82 @@ router
         });
       }
 
-      var resJson;
-      if (todos) {
-        res.status(200);
-        
-        resJson = {
-          message: 'ok',
-          data: todos
-        };
-      } else {
-        res.status(404);
+      res.status(200);
 
-        resJson = {
-          message: 'No data'
-        };
+      return res.json({
+        message: 'ok',
+        id: todo._id
+      });
+    });
+  } else {
+    res.status(403);
+
+    return res.json({
+      message: 'Invalid data'
+    });
+  }
+});
+
+/**
+ *
+ * DELETE request to delete a todo
+ *
+ */
+router.delete('/data', (req, res, next) => {
+  var id = req.body.id || req.query.id;
+
+  if (id) {
+    TodoModel.findByIdAndRemove(id, (err) => {
+      if (err) {
+        console.log(err);
+
+        return next({
+          message: 'Unknown server error'
+        });
       }
 
-      return res.json(resJson);
-    })
-  })
-  .post('/data', (req, res, next) => {
-    var data = req.body;
-
-    if (data) {
-      TodoModel.create({
-        description: data.description,
-        completed: Boolean(data.completed)
-      }, (err, todo) => {
-        if (err) {
-          console.log(err);
-
-          return next({
-            message: 'Unknown server error'
-          });
-        }
-
-        res.status(200);
-
-        return res.json({
-          message: 'ok',
-          id: todo._id
-        });
-      });
-    } else {
-      res.status(403);
+      res.status(200);
 
       return res.json({
-        message: 'Invalid data'
+        message: 'ok'
       });
-    }
-  })
-  .delete('/data', (req, res, next) => {
-    var id = req.body.id || req.query.id;
+    });
+  } else {
+    res.status(403);
 
-    if (id) {
-      TodoModel.findByIdAndRemove(id, (err) => {
-        if (err) {
-          console.log(err);
+    return res.json({
+      message: 'Invalid data'
+    });
+  }
+});
 
-          return next({
-            message: 'Unknown server error'
-          });
-        }
+/**
+ *
+ * PUT request to update a todo
+ *
+ */
+router.put('/data', (req, res, next) => {
+  let id = req.body.id || req.query.id;
+  let data = req.body;
 
-        res.status(200);
+  // Normalize request data    
+  !data.description ? data.description = req.query.description : 0;
+  data.completed === undefined ? data.completed = req.query.completed : 0;
 
-        return res.json({
-          message: 'ok'
+  if (id) {
+    TodoModel.findById(id, (err, todo) => {
+      if (err) {
+        console.log(err);
+
+        return next({
+          message: 'Unknown server error'
         });
-      });
-    } else {
-      res.status(403);
+      }
 
-      return res.json({
-        message: 'Invalid data'
-      });
-    }
-  })
-  .put('/data', (req, res, next) => {
-    let id = req.body.id || req.query.id;
-    let data = req.body;
-
-    !data.description ? data.description = req.query.description : 0;
-    data.completed === undefined ? data.completed = req.query.completed : 0;
-
-    if (id) {
-      TodoModel.findById(id, (err, todo) => {
-        if (err) {
-          console.log(err);
-
-          return next({
-            message: 'Unknown server error'
-          });
-        }
-
+      // Only update when there is any difference
+      if (data.description !== todo.description ||
+        data.completed !== todo.completed) {
+        // Update todo values
         todo.completed = todo.completed === data.completed ? todo.completed : data.completed;
         todo.description = todo.description === data.description || !data.description ? todo.description : data.description;
 
@@ -127,14 +153,23 @@ router
             message: 'ok'
           });
         });
-      });
-    } else {
-      res.status(403);
+      }
+      // No difference
+      else {
+        res.status(200);
 
-      return res.json({
-        message: 'Invalid data'
-      });
-    }
-  });
+        return res.json({
+          message: 'ok'
+        });
+      }
+    });
+  } else {
+    res.status(403);
+
+    return res.json({
+      message: 'Invalid data'
+    });
+  }
+});
 
 module.exports = router;
