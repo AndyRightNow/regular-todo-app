@@ -1,8 +1,6 @@
-# Todo Demo App With Regularjs
+# Todo Demo App - Powered By Regularjs
 
-This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework.
-
-**Still work in progress**.
+This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework, NEJ Utilities, NEJ Toolkit, Expressjs and MongoDB.
 
 # Build and Run
 
