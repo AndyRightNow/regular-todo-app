@@ -135,7 +135,7 @@ router.put('/data', (req, res, next) => {
       if (data.description !== todo.description ||
         data.completed !== todo.completed) {
         // Update todo values
-        todo.completed = todo.completed === data.completed ? todo.completed : data.completed;
+        todo.completed = todo.completed === data.completed || data.completed === undefined ? todo.completed : data.completed;
         todo.description = todo.description === data.description || !data.description ? todo.description : data.description;
 
         todo.save((err) => {
@@ -156,7 +156,7 @@ router.put('/data', (req, res, next) => {
       }
       // No difference
       else {
-        res.status(200);
+        res.status(304);
 
         return res.json({
           message: 'ok'
