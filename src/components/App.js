@@ -101,7 +101,7 @@ define([
           var d = res.data;
 
           data.todos = d.map(function (todo) {
-            return new Todo(todo.description, false, todo._id)
+            return new Todo(todo.description, todo.completed, todo._id)
           });
           // Force update
           self.$update();

@@ -15,7 +15,7 @@ NEJ.define([], function () {
     }
     
     this.description = description;
-    this.completed = completed || false;
+    this.completed = completed === undefined ? false : completed;
     this.id = id || 0;
     this.isEditing = false;
     this._cachedDesc = "";

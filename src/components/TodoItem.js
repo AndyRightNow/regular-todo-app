@@ -2,7 +2,7 @@ define([
   '{pro}/lib/regular.js',
   '{pro}/util/wrapped-rest.js',
   '{pro}/lib/nej/base/global.js'
-], function (Regular, warppedRest, NEJ) {
+], function (Regular, wrappedRest, NEJ) {
   var template = '\
     <div class="box">\
       <article class="media">\
@@ -57,7 +57,23 @@ define([
         this.updateData(data.item);
       });
     },
-    updateData: function (item) {}
+    updateData: function (item) {
+      var data = this.data;
+      var self = this;
+
+      if (item.id) {
+        wrappedRest.request('/api/data', {
+          data: item,
+          method: 'put'
+        }, function (err, resData) {
+          if (err) {
+            data.item = data.cachedItem;
+          }
+
+          self.$update();
+        });
+      }
+    }
   });
 
 

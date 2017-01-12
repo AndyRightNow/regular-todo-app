@@ -18,7 +18,7 @@ router
       var resJson;
       if (todos) {
         res.status(200);
-
+        
         resJson = {
           message: 'ok',
           data: todos
@@ -51,7 +51,7 @@ router
         }
 
         res.status(200);
-        
+
         return res.json({
           message: 'ok',
           id: todo._id
@@ -92,12 +92,12 @@ router
       });
     }
   })
-  .patch('/data', (req, res, next) => {
+  .put('/data', (req, res, next) => {
     let id = req.body.id || req.query.id;
     let data = req.body;
 
-    data.description ? data.description = req.query.description : 0;
-    data.completed ? data.completed = req.query.completed : 0;
+    !data.description ? data.description = req.query.description : 0;
+    data.completed === undefined ? data.completed = req.query.completed : 0;
 
     if (id) {
       TodoModel.findById(id, (err, todo) => {
@@ -110,12 +110,14 @@ router
         }
 
         todo.completed = todo.completed === data.completed ? todo.completed : data.completed;
-        todo.description = todo.description === data.description ? todo.description : data.description;
+        todo.description = todo.description === data.description || !data.description ? todo.description : data.description;
 
         todo.save((err) => {
           if (err) {
+            console.log(err);
+
             return next({
-            message: 'Unknown server error'
+              message: 'Unknown server error'
             });
           }
 

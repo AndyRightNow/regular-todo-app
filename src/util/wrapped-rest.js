@@ -20,21 +20,33 @@ define([
    * @returns
    */
   wrappedRest.request = function (url, options, callback) {
-    rest._$request(url, {
+    var called = false;
+
+    try {
+      rest._$request(url, {
       data: options.data,
       method: options.method,
       onload: function (data) {
         callback(null, data);
+        called = true;
         nProgress.done();
       },
       onerror: function (err) {
         callback(err, null);
+        called = true;
         nProgress.done();
       },
       onbeforerequest: function () {
         nProgress.start();
       }
     });
+    }
+    catch (e) {
+      if (!called) {
+        callback(e, null);
+        called = true;
+      }
+    }
   };
 
   return wrappedRest;
