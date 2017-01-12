@@ -46,7 +46,7 @@ router.get('/data', (req, res, next) => {
 router.post('/data', (req, res, next) => {
   var data = req.body;
 
-  if (data) {
+  if (data.description) {
     TodoModel.create({
       description: data.description,
       completed: Boolean(data.completed) // For undefined value

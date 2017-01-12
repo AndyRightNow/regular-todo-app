@@ -8,7 +8,8 @@
     "start": "npm run build && nodemon ./bin/www",
     "build": "gulp",
     "dev": "gulp dev",
-    "serve": "cross-env NODE_ENV=production && npm run build && forever ./bin/www"
+    "serve": "cross-env NODE_ENV=production && npm run build && forever ./bin/www",
+    "test": "mocha --timeout=20000 --recursive"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -24,10 +25,13 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "axios": "^0.15.3",
+    "chai": "^3.5.0",
     "cross-env": "^3.0.0",
     "gulp": "*",
     "gulp-clean-css": "^2.3.2",
     "gulp-run": "*",
+    "mocha": "^3.2.0",
     "nej": "*",
     "nodemon": "*",
     "rimraf": "*"
