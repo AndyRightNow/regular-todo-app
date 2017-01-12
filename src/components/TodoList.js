@@ -1,6 +1,8 @@
 define([
-  '{pro}/lib/regular.js'
-], function (Regular) {
+  '{pro}/lib/regular.js',
+  '{pro}/lib/nej/util/ajax/rest.js',
+  '{pro}/lib/nprogress.js'
+], function (Regular, rest, nProgress) {
   var template = '\
     <section class="container section">\
       <div class="has-text-centered columns">\
@@ -45,7 +47,6 @@ define([
           return !!this.getItems("completed").length && this.getItems("completed").length === data.todos.length;
         },
         set: function (value, data) {
-
           if (data.todos) {
             data.todos.forEach(function (todo) {
               todo.completed = value;
@@ -77,10 +78,42 @@ define([
       }
     },
     removeItem: function (index) {
-      this.data.todos.splice(index, 1);
+      var item = this.data.todos.splice(index, 1)[0];
+      this.removeData(item, index);
     },
     clearCompleted: function () {
       this.data.todos = this.getItems('active');
+    },
+    removeData: function (item, originalIndex) {
+      var data = this.data;
+      var self = this;
+      var cachedRemoved = item;
+      originalIndex = originalIndex || 0;
+
+      rest._$request('/api/data', {
+        data: { id: item.id },
+        method: 'delete',
+        onload: function (res) {
+          // Stop the progress bar
+          nProgress.done();
+        },
+        onerror: function (err) {
+          if (err) {
+            // Add the item back
+            console.log(data.todos);
+            data.todos.splice(originalIndex, 0, cachedRemoved);
+            console.log(data.todos);
+            self.$update();
+          }
+
+          // Stop the progress bar
+          nProgress.done();
+        },
+        onbeforerequest: function () {
+          // Start the progress bar
+          nProgress.start();
+        }
+      });
     }
   });
 

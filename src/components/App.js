@@ -1,8 +1,9 @@
 define([
   '{pro}/lib/regular.js',
   '{pro}objects/todo.js',
-  '{pro}/util/wrapped-rest.js',
-], function (Regular, Todo, Rest, NProgress) {
+  '{pro}/lib/nej/util/ajax/rest.js',
+  '{pro}/lib/nprogress.js'
+], function (Regular, Todo, rest, nProgress) {
   Regular.event('enter', function (element, fire) {
     Regular.dom.on(element, 'keypress', function (event) {
 
@@ -68,26 +69,27 @@ define([
     addData: function (item) {
       var data = this.data;
 
-      Rest._$request('/api/data', {
+      rest._$request('/api/data', {
         data: item,
         method: 'post',
         onload: function (res) {
           // Stop the progress bar
-          NProgress.done();
+          nProgress.done();
         },
         onerror: function (err) {
           if (err) {
             // Remove the item
             var i = data.todos.indexOf(item);
             if (i !== -1) data.todos.splice(i, 1);
+            self.$update();
           }
 
           // Stop the progress bar
-          NProgress.done();
+          nProgress.done();
         },
         onbeforerequest: function () {
           // Start the progress bar
-          NProgress.start();
+          nProgress.start();
         }
       });
     },
@@ -98,7 +100,7 @@ define([
       var data = this.data;
       var self = this;
 
-      Rest._$request('/api/data', {
+      rest._$request('/api/data', {
         method: 'get',
         onload: function (res) {
           // Response data
@@ -111,15 +113,15 @@ define([
           self.$update();
 
           // Stop the progress bar
-          NProgress.done();
+          nProgress.done();
         },
         onerror: function (err) {
           // Stop the progress bar
-          NProgress.done();
+          nProgress.done();
         },
         onbeforerequest: function () {
           // Start the progress bar
-          NProgress.start();
+          nProgress.start();
         }
       });
     }
