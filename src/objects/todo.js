@@ -5,16 +5,16 @@ NEJ.define([], function () {
    * @export
    * @class Todo
    * @constructor
-   * @param {String} desc The description of this todo item
+   * @param {String} description The description of this todo item
    * @param {boolean} [completed=false] If this item is completed
    *
    */
-  function Todo(desc, completed, id) {
-    if (typeof desc !== "string") {
+  function Todo(description, completed, id) {
+    if (typeof description !== "string") {
       throw new Error('The first argument of Todo object must be a string');
     }
     
-    this.desc = desc;
+    this.description = description;
     this.completed = completed || false;
     this.id = id || 0;
     this.isEditing = false;
@@ -57,10 +57,10 @@ NEJ.define([], function () {
     cancel = cancel || false;
 
     if (!this.isEditing) {
-      this._cachedDesc = this.desc;
+      this._cachedDesc = this.description;
     }
-    else if (!this.desc || cancel) {
-      this.desc = this._cachedDesc;
+    else if (!this.description || cancel) {
+      this.description = this._cachedDesc;
     }
 
     this.isEditing = !this.isEditing;

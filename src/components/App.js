@@ -1,9 +1,8 @@
 define([
   '{pro}/lib/regular.js',
   '{pro}objects/todo.js',
-  '{pro}/lib/nej/util/ajax/rest.js',
-  '{pro}/lib/nprogress.js'
-], function (Regular, Todo, rest, nProgress) {
+  '{pro}/lib/util/warpped-rest.js'
+], function (Regular, Todo, wrappedRest) {
   Regular.event('enter', function (element, fire) {
     Regular.dom.on(element, 'keypress', function (event) {
 
@@ -69,27 +68,15 @@ define([
     addData: function (item) {
       var data = this.data;
 
-      rest._$request('/api/data', {
+      wrappedRest.request('/api/data', {
         data: item,
         method: 'post',
-        onload: function (res) {
-          // Stop the progress bar
-          nProgress.done();
-        },
-        onerror: function (err) {
-          if (err) {
-            // Remove the item
-            var i = data.todos.indexOf(item);
-            if (i !== -1) data.todos.splice(i, 1);
-            self.$update();
-          }
-
-          // Stop the progress bar
-          nProgress.done();
-        },
-        onbeforerequest: function () {
-          // Start the progress bar
-          nProgress.start();
+      }, function (err) {
+        if (err) {
+          // Remove the item
+          var i = data.todos.indexOf(item);
+          if (i !== -1) data.todos.splice(i, 1);
+          self.$update();
         }
       });
     },
@@ -100,9 +87,10 @@ define([
       var data = this.data;
       var self = this;
 
-      rest._$request('/api/data', {
+      wrappedRest.request('/api/data', {
         method: 'get',
-        onload: function (res) {
+      }, function (err, res) {
+        if (!err && res) {
           // Response data
           var d = res.data;
 
@@ -111,17 +99,6 @@ define([
           });
           // Force update
           self.$update();
-
-          // Stop the progress bar
-          nProgress.done();
-        },
-        onerror: function (err) {
-          // Stop the progress bar
-          nProgress.done();
-        },
-        onbeforerequest: function () {
-          // Start the progress bar
-          nProgress.start();
         }
       });
     }

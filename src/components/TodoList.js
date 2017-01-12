@@ -1,8 +1,7 @@
 define([
   '{pro}/lib/regular.js',
-  '{pro}/lib/nej/util/ajax/rest.js',
-  '{pro}/lib/nprogress.js'
-], function (Regular, rest, nProgress) {
+  '{pro}/lib/util/warpped-rest.js',
+], function (Regular, wrappedRest) {
   var template = '\
     <section class="container section">\
       <div class="has-text-centered columns">\
@@ -90,28 +89,14 @@ define([
       var cachedRemoved = item;
       originalIndex = originalIndex || 0;
 
-      rest._$request('/api/data', {
+      wrappedRest.request('/api/data', {
         data: { id: item.id },
         method: 'delete',
-        onload: function (res) {
-          // Stop the progress bar
-          nProgress.done();
-        },
-        onerror: function (err) {
-          if (err) {
-            // Add the item back
-            console.log(data.todos);
-            data.todos.splice(originalIndex, 0, cachedRemoved);
-            console.log(data.todos);
-            self.$update();
-          }
-
-          // Stop the progress bar
-          nProgress.done();
-        },
-        onbeforerequest: function () {
-          // Start the progress bar
-          nProgress.start();
+      }, function (err) {
+        if (err) {
+          // Add the item back
+          data.todos.splice(originalIndex, 0, cachedRemoved);
+          self.$update();
         }
       });
     }

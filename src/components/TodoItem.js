@@ -1,6 +1,8 @@
 define([
-  '{pro}/lib/regular.js'
-], function (Regular) {
+  '{pro}/lib/regular.js',
+  '{pro}/lib/nej/util/ajax/rest.js',
+  '{pro}/lib/nej/base/global.js'
+], function (Regular, rest, NEJ) {
   var template = '\
     <div class="box">\
       <article class="media">\
@@ -10,10 +12,10 @@ define([
         <div class="media-content padding-tb-6px">\
           {#if !item.isEditing}\
             <div class="content" r-class={ { "completed": !item.isActive() } }>\
-              { item.desc }\
+              { item.description }\
             </div>\
           {#else}\
-            <input on-esc={ item.toggleEditing(true) } on-enter={ item.toggleEditing() } type="text" class="input is-medium" r-model={ item.desc }>\
+            <input on-esc={ item.toggleEditing(true) } on-enter={ item.toggleEditing() } type="text" class="input is-medium" r-model={ item.description }>\
           {/if}\
         </div>\
         <div class="media-right">\
@@ -29,11 +31,37 @@ define([
   var TodoItem = Regular.extend({
     name: 'todo-item',
     template: template,
-    data: {},
+    data: {
+      cachedItem: null
+    },
     remove: function () {
       this.$emit("remove");
+    },
+    init: function () {
+      var data = this.data;
+
+      this.$watch('item.isEditing', function (newVal, oldVal) {
+        if (newVal && !oldVal) {
+          data.cachedItem = NEJ.copy({}, data.item);
+          this.$update();
+        } else if (!newVal && oldVal) {
+          this.updateData(data.item);
+        }
+      });
+
+      this.$watch('item.completed', function (newVal, oldVal) {
+        data.cachedItem = NEJ.copy({}, data.item);
+        data.cachedItem.completed = oldVal;
+
+        this.$update();
+        this.updateData(data.item);
+      });
+    },
+    updateData: function (item) {
+      
     }
   });
+
 
   return TodoItem;
 });
