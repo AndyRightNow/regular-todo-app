@@ -66,10 +66,10 @@ router
     }
   })
   .delete('/data', (req, res, next) => {
-    var data = req.body;
-
-    if (data) {
-      TodoModel.findByIdAndRemove(data.id, (err) => {
+    var id = req.body.id || req.query.id;
+    
+    if (id) {
+      TodoModel.findByIdAndRemove(id, (err) => {
         if (err) {
           console.log(err);
 
