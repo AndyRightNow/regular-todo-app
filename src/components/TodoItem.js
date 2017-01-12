@@ -1,8 +1,8 @@
 define([
   '{pro}/lib/regular.js',
-  '{pro}/lib/nej/util/ajax/rest.js',
+  '{pro}/util/wrapped-rest.js',
   '{pro}/lib/nej/base/global.js'
-], function (Regular, rest, NEJ) {
+], function (Regular, warppedRest, NEJ) {
   var template = '\
     <div class="box">\
       <article class="media">\
@@ -57,9 +57,7 @@ define([
         this.updateData(data.item);
       });
     },
-    updateData: function (item) {
-      
-    }
+    updateData: function (item) {}
   });
 
 

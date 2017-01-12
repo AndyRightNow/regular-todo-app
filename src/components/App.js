@@ -1,7 +1,7 @@
 define([
   '{pro}/lib/regular.js',
-  '{pro}objects/todo.js',
-  '{pro}/lib/util/warpped-rest.js'
+  '{pro}/objects/todo.js',
+  '{pro}/util/wrapped-rest.js'
 ], function (Regular, Todo, wrappedRest) {
   Regular.event('enter', function (element, fire) {
     Regular.dom.on(element, 'keypress', function (event) {
@@ -18,25 +18,25 @@ define([
   });
 
   var template = '\
-  <section class="hero is-info">\
-    <div class="hero-body">\
-      <div class="container has-text-centered">\
-        <h1 class="title">\
-          Todo Manager\
-        </h1>\
+    <section class="hero is-info">\
+      <div class="hero-body">\
+        <div class="container has-text-centered">\
+          <h1 class="title">\
+            Todo Manager\
+          </h1>\
+        </div>\
+        <div class="container has-text-centered column is-half">\
+          <input r-model={ newTodoDesc }\
+                on-enter={ this.addItem() }\
+                type="text"\
+                class="input is-large"\
+                placeholder="What do you want to do?"\
+                autofocus\
+                autocomplete>\
+        </div>\
       </div>\
-      <div class="container has-text-centered column is-half">\
-        <input r-model={ newTodoDesc }\
-               on-enter={ this.addItem() }\
-               type="text"\
-               class="input is-large"\
-               placeholder="What do you want to do?"\
-               autofocus\
-               autocomplete>\
-      </div>\
-    </div>\
-  </section>\
-  <todo-list todos={todos} fetched={fetched}></todo-list>\
+    </section>\
+    <todo-list todos={todos} fetched={fetched}></todo-list>\
   ';
 
   var App = Regular.extend({
@@ -67,17 +67,23 @@ define([
      */
     addData: function (item) {
       var data = this.data;
+      var self = this;
 
       wrappedRest.request('/api/data', {
         data: item,
         method: 'post',
-      }, function (err) {
+      }, function (err, res) {
         if (err) {
           // Remove the item
           var i = data.todos.indexOf(item);
           if (i !== -1) data.todos.splice(i, 1);
-          self.$update();
         }
+
+        if (res && res.id) {
+          item.id = res.id;
+        }
+
+        self.$update();
       });
     },
     /**

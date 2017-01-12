@@ -41,7 +41,7 @@ router
       TodoModel.create({
         description: data.description,
         completed: Boolean(data.completed)
-      }, (err) => {
+      }, (err, todo) => {
         if (err) {
           console.log(err);
 
@@ -51,9 +51,10 @@ router
         }
 
         res.status(200);
-
+        
         return res.json({
-          message: 'ok'
+          message: 'ok',
+          id: todo._id
         });
       });
     } else {

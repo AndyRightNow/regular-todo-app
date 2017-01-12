@@ -1,6 +1,6 @@
 define([
   '{pro}/lib/regular.js',
-  '{pro}/lib/util/warpped-rest.js',
+  '{pro}/util/wrapped-rest.js',
 ], function (Regular, wrappedRest) {
   var template = '\
     <section class="container section">\
@@ -81,7 +81,12 @@ define([
       this.removeData(item, index);
     },
     clearCompleted: function () {
-      this.data.todos = this.getItems('active');
+      var data = this.data;
+      var self = this;
+
+      this.getItems('completed').forEach(function (item) {
+        self.removeItem(data.todos.indexOf(item));
+      });
     },
     removeData: function (item, originalIndex) {
       var data = this.data;
