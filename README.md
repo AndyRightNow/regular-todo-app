@@ -26,6 +26,9 @@ This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework
 7. [**NEJ**](https://github.com/genify/nej) for utilities and module system.
 8. [**Bulma**](http://bulma.io/) for CSS framework.
 9. [**NProgress**](http://ricostacruz.com/nprogress/) for Progress bar.
+10. [**Axios**](https://github.com/mzabriskie/axios) for client requests in Server API tests.
+11. [**Mocha**](https://mochajs.org/) for test framework and test runner.
+12. [**Chai**](http://chaijs.com/) for test utilities and library.
 
 # Screenshot Preview
 
