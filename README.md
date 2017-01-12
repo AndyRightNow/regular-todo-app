@@ -18,8 +18,8 @@ This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework
 
 # Technology Stack
 
-1. [**Express.js**]() for server-side framework.
-2. [**MongoDB**]() for database.
+1. [**Express.js**](http://expressjs.com/) for server-side framework.
+2. [**MongoDB**](https://www.mongodb.com) for database. Also [**Mongoose**](mongoosejs.com/) for database management and [**mLab**](https://mlab.com) for database hosting.
 3. [**Regularjs**](http://regularjs.github.io/) for UI components.
 4. [**Gulp**](http://gulpjs.com/) and [**NEJ Toolkit**](https://github.com/genify/toolkit2) for building.
 5. [**Pug**](https://pugjs.org/) for HTML template.
