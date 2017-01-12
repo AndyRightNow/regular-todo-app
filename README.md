@@ -14,6 +14,8 @@ This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework
 
 5. Run ```npm run dev``` if you want to play with it yourself.
 
+6. To run tests, first make sure you run ```npm start``` or ```npm run serve``` and the server is up and runing beforehand. Run ```npm run test``` to see the test results.
+
 # Technology Stack
 
 1. [**Express.js**](http://expressjs.com/) for server-side framework.
