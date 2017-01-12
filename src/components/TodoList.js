@@ -33,14 +33,25 @@ define([
       todos: []
     },
     computed: {
+      /**
+       * Get completed todos
+       */
       completedTodos: function (data) {
         return data.todos.filter(function (todo) {
           return !todo.isActive();
         });
       },
+      /**
+       * Todos under the current section
+       */
       filteredTodos: function (data) {
         return this.getItems(data.currentSection);
       },
+      /**
+       * A flag to show if all todos are completed
+       *
+       * Two-way bound with the checkbox input
+       */
       allCompleted: {
         get: function (data) {
           return !!this.getItems("completed").length && this.getItems("completed").length === data.todos.length;
@@ -54,6 +65,12 @@ define([
         }
       }
     },
+    /**
+     * Get the correspondent todos under the current section(e.g. "all" or "active")
+     * 
+     * @param {String} currentSection
+     * @returns
+     */
     getItems: function (currentSection) {
       var data = this.data;
 
@@ -76,10 +93,18 @@ define([
           }
       }
     },
+    /**
+     * Remove a todo item from the list and send a delete request to the server
+     * 
+     * @param {Number} index
+     */
     removeItem: function (index) {
       var item = this.data.todos.splice(index, 1)[0];
       this.removeData(item, index);
     },
+    /**
+     * Remove all completed todos
+     */
     clearCompleted: function () {
       var data = this.data;
       var self = this;
@@ -88,6 +113,13 @@ define([
         self.removeItem(data.todos.indexOf(item));
       });
     },
+    /**
+     * Send a request to the server to delete the todo
+     * If any error occurs during the request, restore the deleted item back to the original position
+     * 
+     * @param {Todo} item
+     * @param {Number} originalIndex
+     */
     removeData: function (item, originalIndex) {
       var data = this.data;
       var self = this;

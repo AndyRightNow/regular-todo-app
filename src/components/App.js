@@ -3,6 +3,9 @@ define([
   '{pro}/objects/todo.js',
   '{pro}/util/wrapped-rest.js'
 ], function (Regular, Todo, wrappedRest) {
+  /**
+   * 'Enter' KeyPress event
+   */
   Regular.event('enter', function (element, fire) {
     Regular.dom.on(element, 'keypress', function (event) {
 
@@ -10,6 +13,9 @@ define([
     });
   });
 
+  /**
+   * 'Esc' KeyUp event
+   */
   Regular.event('esc', function (element, fire) {
     Regular.dom.on(element, 'keyup', function (event) {
 
@@ -49,6 +55,9 @@ define([
     init: function () {
       this.getData();
     },
+    /**
+     * Add a todo item using the newTodoDesc
+     */
     addItem: function () {
       var data = this.data;
 

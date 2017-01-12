@@ -42,12 +42,16 @@ define([
     data: {
       cachedItem: null
     },
+    /**
+     * Signal its parent element to remove itself
+     */
     remove: function () {
       this.$emit("remove");
     },
     init: function () {
       var data = this.data;
 
+      // Watch editing state to update to the server
       this.$watch('item.isEditing', function (newVal, oldVal) {
         if (newVal && !oldVal) {
           data.cachedItem = NEJ.copy({}, data.item);
@@ -56,7 +60,6 @@ define([
           this.updateData(data.item);
         }
       });
-
       this.$watch('item.completed', function (newVal, oldVal) {
         data.cachedItem = NEJ.copy({}, data.item);
         data.cachedItem.completed = oldVal;
@@ -65,6 +68,11 @@ define([
         this.updateData(data.item);
       });
     },
+    /**
+     * Send a request to the server to update the todo
+     * 
+     * @param {Todo} item
+     */
     updateData: function (item) {
       var data = this.data;
       var self = this;
