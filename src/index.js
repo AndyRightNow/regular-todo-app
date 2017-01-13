@@ -3,7 +3,7 @@ define([
   '{pro}components/App.js',
   '{pro}components/TodoItem.js',
   '{pro}components/TodoList.js'
-], function (Regular, App, TodoItem, TodoList) {
+], function (_, App, TodoItem, TodoList) {
   Regular.component(TodoItem.name, TodoItem);
   Regular.component(TodoList.name, TodoList);
   

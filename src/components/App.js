@@ -2,7 +2,7 @@ define([
   '{pro}/lib/regular.js',
   '{pro}/objects/todo.js',
   '{pro}/util/wrapped-rest.js'
-], function (Regular, Todo, wrappedRest) {
+], function (_, Todo, wrappedRest) {
   /**
    * 'Enter' KeyPress event
    */

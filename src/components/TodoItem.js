@@ -2,7 +2,7 @@ define([
   '{pro}/lib/regular.js',
   '{pro}/util/wrapped-rest.js',
   '{pro}/lib/nej/base/global.js'
-], function (Regular, wrappedRest, NEJ) {
+], function (_, wrappedRest, NEJ) {
   var template = '\
     <div class="box">\
       <article class="media">\

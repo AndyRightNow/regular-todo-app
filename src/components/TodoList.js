@@ -1,7 +1,7 @@
 define([
   '{pro}/lib/regular.js',
   '{pro}/util/wrapped-rest.js',
-], function (Regular, wrappedRest) {
+], function (_, wrappedRest) {
   var template = '\
     <section class="container section">\
       <div class="has-text-centered columns">\
