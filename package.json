@@ -8,7 +8,7 @@
     "start": "npm run build && nodemon ./bin/www",
     "build": "gulp",
     "dev": "gulp dev",
-    "serve": "npm run build && pm2 start ./bin/www",
+    "serve": "npm run build && node ./bin/www",
     "test": "mocha --timeout=20000 --recursive"
   },
   "engines": {
@@ -24,7 +24,6 @@
     "mongoose": "^4.7.6",
     "morgan": "~1.7.0",
     "nprogress": "^0.2.0",
-    "pm2": "^2.2.3",
     "pug": "~2.0.0-beta6",
     "regularjs": "*",
     "serve-favicon": "~2.3.0",
