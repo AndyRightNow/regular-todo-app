@@ -2,6 +2,12 @@
 
 This is a todo demo app using [Regularjs](http://regularjs.github.io/) framework, NEJ Utilities, NEJ Toolkit, Expressjs and MongoDB.
 
+# Live Demo
+
+[**See Live Demo**](https://arcane-retreat-26701.herokuapp.com/)
+
+(Could be down at any time)
+
 # Build and Run
 
 1. Download the zip file or simple run ```git clone https://github.com/AndyRightNow/regular-todo-app.git``` in your command line window.
