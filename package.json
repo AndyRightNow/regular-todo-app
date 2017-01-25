@@ -11,6 +11,11 @@
     "serve": "cross-env NODE_ENV=production && npm run build && pm2 start ./bin/www",
     "test": "mocha --timeout=20000 --recursive"
   },
+  "engines": {
+    "node": "^6.9.0",
+    "npm": "^3.10.10",
+    "yarn": "^0.18.1"
+  },
   "dependencies": {
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
