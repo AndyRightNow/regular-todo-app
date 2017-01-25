@@ -27,17 +27,16 @@
     "pm2": "^2.2.3",
     "pug": "~2.0.0-beta6",
     "regularjs": "*",
-    "serve-favicon": "~2.3.0"
-  },
-  "devDependencies": {
+    "serve-favicon": "~2.3.0",
     "axios": "^0.15.3",
     "chai": "^3.5.0",
-    "cross-env": "^3.0.0",
     "gulp": "*",
     "gulp-clean-css": "^2.3.2",
     "gulp-run": "*",
     "mocha": "^3.2.0",
-    "nej": "*",
+    "nej": "*"
+  },
+  "devDependencies": {
     "nodemon": "*",
     "rimraf": "*"
   }
