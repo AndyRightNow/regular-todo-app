@@ -8,32 +8,32 @@
     "start": "npm run build && nodemon ./bin/www",
     "build": "gulp",
     "dev": "gulp dev",
-    "serve": "npm run build && node ./bin/www",
+    "serve": "npm run build && forever ./bin/www",
     "test": "mocha --timeout=20000 --recursive"
   },
   "engines": {
     "node": "^6.9.0",
-    "npm": "^3.10.10",
-    "yarn": "^0.18.1"
+    "npm": "^3.10.10"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "~1.15.2",
+    "chai": "^3.5.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
-    "mongoose": "^4.7.6",
-    "morgan": "~1.7.0",
-    "nprogress": "^0.2.0",
-    "pug": "~2.0.0-beta6",
-    "regularjs": "*",
-    "serve-favicon": "~2.3.0",
-    "axios": "^0.15.3",
-    "chai": "^3.5.0",
+    "forever": "^0.15.3",
     "gulp": "*",
     "gulp-clean-css": "^2.3.2",
     "gulp-run": "*",
     "mocha": "^3.2.0",
-    "nej": "*"
+    "mongoose": "^4.7.6",
+    "morgan": "~1.7.0",
+    "nej": "^1.6.3",
+    "nprogress": "^0.2.0",
+    "pug": "~2.0.0-beta11",
+    "regularjs": "*",
+    "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
     "nodemon": "*",
